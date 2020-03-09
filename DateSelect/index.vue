@@ -77,14 +77,26 @@ export default {
     Year,
     Week
   },
-  //   props: {
-  //     itemData: {
-  //       type: Object,
-  //       default() {
-  //         return {};
-  //       }
-  //     }
-  //   },
+    props: {
+    //   itemData: {
+    //     type: Object,
+    //     default() {
+    //       return {};
+    //     }
+    //   }
+
+      initDate:{
+          type:Object,
+          default(){
+              return {
+                type: "Day",
+                value: ["2020-02-10", "2020-03-04"],
+                sort: 1,
+              }
+          }
+      }
+    },
+  
   computed: {
     currentComponent() {
       return this.activeMenu.component;
@@ -119,9 +131,15 @@ export default {
 
   methods: {
     init() {
-      let v = localStorage.getItem(this.itemData.field);
+    //   let v = localStorage.getItem(this.itemData.field);
+    //   if (v) {
+    //     v = JSON.parse(v);
+
+      let v = this.initDate ;
       if (v) {
-        v = JSON.parse(v);
+        if( Object.prototype.toString.call(v) == '[object String]') {
+            v = JSON.parse(v);
+        }
         this.dataV = v;
         // this.selectedDate = v.value;
         this.activeMenu = this.itemData.value.find(item => {
